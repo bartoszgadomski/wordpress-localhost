@@ -1,0 +1,3 @@
+# ignore everything inside wp-content directory except debug.log
+wp-content/*
+!wp-content/debug.log

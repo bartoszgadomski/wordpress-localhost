@@ -1,0 +1,63 @@
+version: '3.8'
+volumes:
+  dbdata:
+    driver: local
+services:
+  wordpress:
+    build: .
+    container_name: wordpress
+    depends_on:
+      - mysql
+      - mailhog
+    links:
+      - mysql
+      - mailhog
+    ports:
+      - 80:80
+    environment:
+      WORDPRESS_DB_HOST: mysql:3306
+      WORDPRESS_DB_USER: admin
+      WORDPRESS_DB_PASSWORD: admin
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DEBUG: 1
+      WORDPRESS_CONFIG_EXTRA: |
+        define( 'WP_DEBUG_LOG', true );
+        define( 'WP_HOME', 'http://localhost.develop' );
+        define( 'WP_SITEURL', 'http://localhost.develop' );
+    volumes:
+      - ./wp-content/:/var/www/html/wp-content/
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    command: [
+      '--default_authentication_plugin=mysql_native_password',
+      '--character-set-server=utf8mb4',
+      '--collation-server=utf8mb4_unicode_ci'
+    ]
+    volumes:
+      - dbdata:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+      MYSQL_ROOT_PASSWORD: admin
+    cap_add:
+      - SYS_NICE
+  phpmyadmin:
+    image: phpmyadmin:5.1
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: admin
+      UPLOAD_LIMIT: 31457280
+    ports:
+      - 8080:80
+    links:
+      - mysql
+  mailhog:
+    image: mailhog/mailhog:v1.0.1
+    container_name: mailhog
+    ports:
+      - 1025:1025
+      - 8025:8025
