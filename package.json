@@ -1,0 +1,19 @@
+{
+  "name": "wordpress-localhost",
+  "version": "1.0.0",
+  "description": "Docker Compose setup for running WordPress on localhost.",
+  "scripts": {
+    "setup": "mkdir wp-content"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bartoszgadomski/wordpress-localhost.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bartoszgadomski/wordpress-localhost/issues"
+  },
+  "homepage": "https://github.com/bartoszgadomski/wordpress-localhost#readme"
+}
