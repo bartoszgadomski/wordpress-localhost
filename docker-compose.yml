@@ -50,7 +50,8 @@ services:
       PMA_HOST: mysql
       PMA_PORT: 3306
       MYSQL_ROOT_PASSWORD: admin
-      UPLOAD_LIMIT: 31457280
+      UPLOAD_LIMIT: 314572800
+      MAX_EXECUTION_TIME: 10000
     ports:
       - 8080:80
     links:
