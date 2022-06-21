@@ -1,4 +1,4 @@
-FROM wordpress:5.8
+FROM wordpress:6.0
 
 # install and enable sendmail extension for mailhog
 RUN curl --location --output /usr/local/bin/mhsendmail https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsendmail_linux_amd64 && \
